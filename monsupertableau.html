@@ -503,7 +503,49 @@
         </tfoot>
     </table>
 
+    <script>
+    let clickElements = [];
+    let elements = document.getElementsByTagName("tr");
 
+    function refreshSelectionText(count){
+        let selectionText = document.getElementById("selection");
+        if (count > 1)
+            selectionText.innerText = count + " éléments sélectionnés";
+        else
+            selectionText.innerText = count + " élément sélectionné";
+    }
+
+    function changeStyle(element, backgroundColor, fontWeight){
+        element.style.backgroundColor = backgroundColor;
+        element.style.fontWeight = fontWeight;
+    }
+
+    for (let i = 0; i < elements.length; i++) {
+        let element = elements[i];
+        element.addEventListener("click", function (event) {
+            let target = this;
+            let targetIndex = clickElements.indexOf(target);
+            if (targetIndex === -1) {
+                changeStyle(target, "lightblue", "900")
+                clickElements.push(target);
+                refreshSelectionText(clickElements.length);
+            }
+            else {
+                changeStyle(target, "white", "500")
+                clickElements.splice(targetIndex, 1);
+                refreshSelectionText(clickElements.length);
+            }
+        });
+        element.addEventListener("mouseover", function(){
+                let target = this;
+                target.style.border = "1px solid #888";
+            });
+            element.addEventListener("mouseout", function(){
+                let target = this;
+                target.style.border = "";
+            });
+    }
+</script>
 
 </body>
 
