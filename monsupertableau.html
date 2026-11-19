@@ -5,19 +5,6 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/2.3.8/js/dataTables.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/2.3.8/css/dataTables.dataTables.min.css">
-    <style type="text/css">
-        table {
-            border-collapse: collapse;
-        }
-
-        tr:hover td {
-            background: #ccc;
-        }
-
-        tr {
-            cursor: pointer;
-        }
-    </style>
 </head>
 
 <body>
@@ -608,7 +595,15 @@
                 $("#selection").text(count + " élément sélectionné");
         }
 
-        let table = $("table").DataTable();
+        let table = $("table").DataTable({
+            language: {
+                lengthMenu: "Affichage de _MENU_ enregistrements par page",
+                zeroRecords: "Rien trouvé… Désolé!",
+                info: "Affichage de la page _PAGE_ de _PAGES_",
+                infoEmpty: "Aucun enregistrement disponible",
+                infoFiltered: "(filtré à partir d'un maximum de _MAX_ enregistrements)",
+                search: "Recherche : "
+            }});
         $("tbody").on("click", "tr", function() {
             $(this).toggleClass("selected");
             refreshSelectionText(table.rows(".selected").data().length);
