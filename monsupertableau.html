@@ -3,6 +3,8 @@
 
 <head>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/2.3.8/js/dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.8/css/dataTables.dataTables.min.css">
     <style type="text/css">
         table {
             border-collapse: collapse;
@@ -553,7 +555,7 @@
                 changeStyle(target, null, null, "")
             });
     }*/
-        function refreshSelectionText(count) {
+        /*function refreshSelectionText(count) {
             if (count > 1)
                 $("#selection").text(count + " éléments sélectionnés");
             else
@@ -597,7 +599,20 @@
 
         let clickElements = [];
 
-        $("tr").on("click", onRowClick).on("mouseover", onRowMouseOver).on("mouseout", onRowMouseOut);
+        $("tr").on("click", onRowClick).on("mouseover", onRowMouseOver).on("mouseout", onRowMouseOut);*/
+
+        function refreshSelectionText(count) {
+            if (count > 1)
+                $("#selection").text(count + " éléments sélectionnés");
+            else
+                $("#selection").text(count + " élément sélectionné");
+        }
+
+        let table = $("table").DataTable();
+        $("tbody").on("click", "tr", function() {
+            $(this).toggleClass("selected");
+            refreshSelectionText(table.rows(".selected").data().length);
+        });
     </script>
 
 </body>
