@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <style type="text/css">
         table {
             border-collapse: collapse;
@@ -504,7 +505,7 @@
     </table>
 
     <script>
-    let clickElements = [];
+    /*let clickElements = [];
     let elements = document.getElementsByTagName("tr");
 
     function refreshSelectionText(count){
@@ -551,7 +552,52 @@
                 let target = this;
                 changeStyle(target, null, null, "")
             });
-    }
+    }*/
+        function refreshSelectionText(count) {
+            if (count > 1)
+                $("#selection").text(count + " éléments sélectionnés");
+            else
+                $("#selection").text(count + " élément sélectionné");
+        }
+
+        function changeStyle(element, backgroundColor, fontWeight, border) {
+            if (backgroundColor !== null) {
+                $(element).css("background-color", backgroundColor);
+            }
+            if (fontWeight !== null) {
+                $(element).css("font-weight", fontWeight);
+            }
+            if (border !== null) {
+                $(element).css("border", border);
+            }
+        }
+
+        function onRowClick(){
+            let target = this;
+            let targetIndex = clickElements.indexOf(target);
+            if (targetIndex === -1) {
+                changeStyle(target, "lightblue", "900", null);
+                clickElements.push(target);
+                refreshSelectionText(clickElements.length);
+            }
+            else {
+                changeStyle(target, "white", "500", null);
+                clickElements.splice(targetIndex, 1);
+                refreshSelectionText(clickElements.length);
+            }
+        }
+
+        function onRowMouseOver(){
+            changeStyle(this, null, null, "1px solid #888");
+        }
+
+        function onRowMouseOut(){
+            changeStyle(this, null, null, "");
+        }
+
+        let clickElements = [];
+
+        $("tr").on("click", onRowClick).on("mouseover", onRowMouseOver).on("mouseout", onRowMouseOut);
     </script>
 
 </body>
