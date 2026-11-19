@@ -515,9 +515,16 @@
             selectionText.innerText = count + " élément sélectionné";
     }
 
-    function changeStyle(element, backgroundColor, fontWeight){
-        element.style.backgroundColor = backgroundColor;
-        element.style.fontWeight = fontWeight;
+    function changeStyle(element, backgroundColor, fontWeight, border){
+        if(backgroundColor !== null){
+            element.style.backgroundColor = backgroundColor;
+        }
+        if(fontWeight !== null){
+            element.style.fontWeight = fontWeight;
+        }
+        if(border !== null){
+            element.style.border = border;
+        }
     }
 
     for (let i = 0; i < elements.length; i++) {
@@ -531,21 +538,21 @@
                 refreshSelectionText(clickElements.length);
             }
             else {
-                changeStyle(target, "white", "500")
+                changeStyle(target, "white", "500", null)
                 clickElements.splice(targetIndex, 1);
                 refreshSelectionText(clickElements.length);
             }
         });
         element.addEventListener("mouseover", function(){
                 let target = this;
-                target.style.border = "1px solid #888";
+                changeStyle(target, null, null, "1px solid #888")
             });
             element.addEventListener("mouseout", function(){
                 let target = this;
-                target.style.border = "";
+                changeStyle(target, null, null, "")
             });
     }
-</script>
+    </script>
 
 </body>
 
